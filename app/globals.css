@@ -1,0 +1,27 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Tema escuro é o padrão; o claro é ativado por data-theme="light". */
+:root {
+  color-scheme: dark;
+  --board: 15 18 36; --paper: 24 28 54; --ink: 230 233 245;
+  --signal: 108 140 255; --gold: 212 174 74; --mute: 154 160 192; --onsignal: 15 18 36;
+}
+:root[data-theme="light"] {
+  color-scheme: light;
+  --board: 227 230 238; --paper: 243 244 248; --ink: 27 31 59;
+  --signal: 47 85 232; --gold: 184 145 43; --mute: 91 97 127; --onsignal: 255 255 255;
+}
+
+html { scroll-behavior: smooth; scroll-padding-top: 4.5rem; }
+body { @apply bg-board text-ink font-sans antialiased; }
+:focus-visible { outline: 2px solid theme("colors.signal"); outline-offset: 3px; }
+
+/* Única animação automática: os pinos "energizam" ao carregar. */
+@keyframes power { from { opacity: .25; transform: translateX(-6px); } to { opacity: 1; transform: none; } }
+.pin-on { animation: power .5s ease-out both; }
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .pin-on { animation: none; }
+}
